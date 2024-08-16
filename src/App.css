@@ -1,0 +1,65 @@
+.sidebar {
+  position: fixed;
+  z-index: 10;
+  top: 6.1rem;
+  height: calc(100vh - 6.1rem);
+}
+
+.navbar {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  width: 100%;
+}
+
+/* Side menu */
+/* Sidebar Styling */
+
+.menu-content {
+  padding: 1rem;
+  width: auto;
+}
+
+.menu-columns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.column:last-child {
+  margin-right: 0;
+}
+
+.column h4 {
+  margin-bottom: 0.5rem;
+}
+
+.column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.column ul li {
+  margin-bottom: 0.5rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute-menu {
+  position: absolute;
+  height: calc(100vh - 6rem);
+  left: 100%;
+  top: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
