@@ -5,10 +5,13 @@ import { Heading } from "../components/UserComponents/Heading";
 import Navbar from "../components/Navbar/Navbar";
 import Header from "../components/Header/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
+import { Column } from "../components/UserComponents/Columns/Columns";
+import { ColumnLayout } from "../components/UserComponents/Columns/ColumnsLayout";
+import { Button } from "../components/UserComponents/Buttons/Button";
 
 const Home = () => {
   return (
-    <Editor resolver={{ Container, Heading }}>
+    <Editor resolver={{ Container, Heading, Column,ColumnLayout, Button }}>
       {/* <DefaultLayout>
                 <Frame>
                 <Element is={Container} padding={5} background="#eee" canvas>

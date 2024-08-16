@@ -4,7 +4,10 @@ import { BsQuestion } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { Heading } from "../UserComponents/Heading";
-import { Element, useEditor } from "@craftjs/core";
+import { Canvas, Element, useEditor } from "@craftjs/core";
+import { ColumnLayout } from "../UserComponents/Columns/ColumnsLayout";
+import { Column } from "../UserComponents/Columns/Columns";
+import { Button } from "../UserComponents/Buttons/Button";
 
 interface AddElementProps {
   closeMenu: () => void;
@@ -27,18 +30,6 @@ const AddElement: React.FC<AddElementProps> = ({ closeMenu }) => {
       third: {
         "themed-text": [
           <h2 className="font-bold text-lg">Themed Text</h2>,
-          // <h1
-          //     ref={(ref) => connectors.create(ref, <Element is={Heading} text="Heading h1" />)}
-          //     className="cursor-move"
-          // >
-          //     Heading H1
-          // </h1>,
-          // <h2
-          //     ref={(ref) => connectors.create(ref, <Element is={Heading} text="Heading h2" />)}
-          //     className="cursor-move"
-          // >
-          //     Heading H2
-          // </h2>,
           <div
             ref={(ref) =>
               connectors.create(
@@ -128,6 +119,37 @@ const AddElement: React.FC<AddElementProps> = ({ closeMenu }) => {
         ],
       },
     },
+    Buttons: {
+        second: [
+          { label: "Buttons", id: "buttons" },
+        ],
+        third: {
+          buttons: [
+            <h2 key="heading" className="font-bold text-lg">Buttons</h2>,
+            <div
+              key="primary"
+              ref={(ref) => connectors.create(ref, <Button text="Primary" buttonType="primary" />)}
+              className="cursor-move mb-2"
+            >
+              <button className="bg-blue-500 text-white px-4 py-2 rounded">Primary</button>
+            </div>,
+            <div
+              key="secondary"
+              ref={(ref) => connectors.create(ref, <Button text="Secondary" buttonType="secondary" />)}
+              className="cursor-move mb-2"
+            >
+              <button className="bg-gray-500 text-white px-4 py-2 rounded">Secondary</button>
+            </div>,
+            <div
+              key="simple"
+              ref={(ref) => connectors.create(ref, <Button text="Simple" buttonType="simple" />)}
+              className="cursor-move mb-2"
+            >
+              <button className="bg-white text-black border border-gray-300 px-4 py-2 rounded">Simple</button>
+            </div>
+          ]
+        }
+      },
     image: {
       second: [
         { label: "Type 1", id: "type-1" },
@@ -144,6 +166,29 @@ const AddElement: React.FC<AddElementProps> = ({ closeMenu }) => {
         ],
       },
     },
+    Columns:{
+        second:[
+            {label:"3 Columns", id:"3 columns"}
+        ],
+        third:{
+            "Three Columns":[
+                <button
+      ref={ref => {
+        connectors.create(
+          ref,
+          <Canvas is={ColumnLayout}>
+            <Canvas is={Column}>1</Canvas>
+            <Canvas is={Column}>2</Canvas>
+            <Canvas is={Column}>3</Canvas>
+          </Canvas>
+        );
+      }}
+    >
+      ColumnLayout
+    </button>
+            ]
+        }
+    }
   };
 
   const handleClick = (element: string) => {

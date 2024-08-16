@@ -77,8 +77,15 @@ import { SlScreenDesktop } from "react-icons/sl";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { RiCloseFill } from "react-icons/ri";
 import { HiMinusSm } from "react-icons/hi";
+import { useEditor } from '@craftjs/core';
 
 const Header: React.FC = () => {
+    const { canUndo, canRedo, actions } = useEditor((state, query) => ({
+        canUndo: query.history.canUndo(),
+        canRedo: query.history.canRedo()
+      }));
+
+
     return (
         <header className="bg-white border-b-[1px] border-gray-300 shadow-md flex items-center px-4 py-0">
             <div className="flex items-center space-x-4 flex-shrink-0 w-[22%]">
@@ -110,10 +117,10 @@ const Header: React.FC = () => {
             </div>
             <div className="flex items-center space-x-4 flex-shrink-0 w-[30%] justify-end">
                 <div className="flex items-center space-x-2 py-4 pl-4 border-l-[1px] border-gray-400">
-                    <button className="text-gray-700 hover:text-blue-600">
+                    <button className="text-gray-700 hover:text-blue-600" onClick={() => actions.history.undo()}>
                         <FaUndo />
                     </button>
-                    <button className="text-gray-700 hover:text-blue-600">
+                    <button className="text-gray-700 hover:text-blue-600" onClick={() => actions.history.redo()}>
                         <FaRedo />
                     </button>
                 </div>
