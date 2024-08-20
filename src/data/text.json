@@ -77,6 +77,34 @@
       ]
     }
     
+  },
+  "image":{
+    "1": [
+      { "label": "Themed Images", "id": "themed-images" },
+      { "label": "Faded Images", "id": "faded-images" }
+    ],
+    "2":{
+      "collapsable-text": [
+        {
+          "type": "ThemedImages",
+          "props": { "text": "Themed Images 1" }
+        },
+        {
+          "type": "ThemedImages",
+          "props": { "text": "Themed Images 2" }
+        }
+      ],
+      "text-mask": [
+        {
+          "type": "FadedImages",
+          "props": { "text": "Faded Images 1" }
+        },
+        {
+          "type": "Faded Images",
+          "props": { "text": "Faded Images 2" }
+        }
+      ]
+    }
   }
 }
 
