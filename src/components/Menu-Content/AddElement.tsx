@@ -135,7 +135,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Element, ElementProps } from "@craftjs/core";
 import { Heading } from "../UserComponents/Heading";
+import { Text } from "../UserComponents/Text/Text";
 import { Button } from "../UserComponents/Buttons/Button";
+import { Column } from "../UserComponents/Columns/Columns";
+import { Wrapper } from "../UserComponents/Wrapper/Wrapper";
 import { FaSearch } from "react-icons/fa";
 import { BsQuestion } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
@@ -144,6 +147,9 @@ import { motion } from "framer-motion";
 type ComponentMap = {
   Heading: typeof Heading;
   Button: typeof Button;
+  Text: typeof Text;
+  Column: typeof Column;
+  Wrapper: typeof Wrapper;
 };
 
 type ComponentProps = {
@@ -170,6 +176,9 @@ type AddElementProps = {
 const componentMap: ComponentMap = {
   Heading,
   Button,
+  Text,
+  Column,
+  Wrapper
 };
 
 const renderComponent = (
@@ -198,7 +207,7 @@ const renderComponent = (
       {type === "Button" ? (
         <button
           className={`bg-${
-            props.buttonType === "primary" ? "blue" : "gray"
+            props.buttonType === "primary" ? "red" : "gray"
           }-500 text-white px-4 py-2 rounded`}
         >
           {props.text}

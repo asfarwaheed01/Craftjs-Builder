@@ -67,16 +67,33 @@
       ],
       "text-mask": [
         {
-          "type": "TextMask",
+          "type": "Text",
           "props": { "text": "Text Mask 1" }
         },
         {
-          "type": "TextMask",
+          "type": "Text",
           "props": { "text": "Text Mask 2" }
         }
       ]
     }
     
+  },
+  "button":{
+    "1": [
+      { "label": "Themed Images", "id": "button" }
+    ],
+    "2":{
+      "button": [
+        {
+          "type": "Button",
+          "props": { "text": "Button Primary", "buttonType": "primary" }
+        },
+        {
+          "type": "Button",
+          "props": { "text": "Button Secondary", "buttonType": "secondary"  }
+        }
+      ]
+    }
   },
   "image":{
     "1": [
@@ -84,7 +101,7 @@
       { "label": "Faded Images", "id": "faded-images" }
     ],
     "2":{
-      "collapsable-text": [
+      "themed-images": [
         {
           "type": "ThemedImages",
           "props": { "text": "Themed Images 1" }
@@ -94,7 +111,7 @@
           "props": { "text": "Themed Images 2" }
         }
       ],
-      "text-mask": [
+      "image-mask": [
         {
           "type": "FadedImages",
           "props": { "text": "Faded Images 1" }
@@ -102,6 +119,37 @@
         {
           "type": "Faded Images",
           "props": { "text": "Faded Images 2" }
+        }
+      ]
+    }
+  },
+  "columns":{
+    "1": [
+      { "label": "3 columns", "id": "three-columns" },
+      { "label": "2 columns", "id": "two-columns" }
+    ],
+    "2":{
+      "themed-images": [
+        {
+          "type": "Column",
+          "props": { "text": "3 Columns" }
+        },
+        {
+          "type": "Column",
+          "props": { "text": "2 Columns" }
+        }
+      ]
+    }
+  },
+  "layout":{
+    "1": [
+      { "label": "Wrapper", "id": "wrapper" }
+    ],
+    "2":{
+      "themed-images": [
+        {
+          "type": "Wrapper",
+          "props": { "text": "Wrapper" }
         }
       ]
     }

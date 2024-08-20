@@ -8,10 +8,13 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import { Column } from "../components/UserComponents/Columns/Columns";
 import { ColumnLayout } from "../components/UserComponents/Columns/ColumnsLayout";
 import { Button } from "../components/UserComponents/Buttons/Button";
+import { Text } from "../components/UserComponents/Text/Text";
+import { Wrapper } from "../components/UserComponents/Wrapper/Wrapper";
+import { ContainerMini } from "../components/UserComponents/ContainerMini/ContainerMini";
 
 const Home = () => {
   return (
-    <Editor resolver={{ Container, Heading, Column,ColumnLayout, Button }}>
+    <Editor resolver={{ Container, Heading, Column,ColumnLayout, Button, Text, Wrapper, ContainerMini }}>
       {/* <DefaultLayout>
                 <Frame>
                 <Element is={Container} padding={5} background="#eee" canvas>
@@ -33,7 +36,7 @@ const Home = () => {
             <main>
               <div className="mx-auto max-w-screen-2xl px-2 py-4">
                 <Frame>
-                  <Element is={Container} padding={5} background="#eee" canvas>
+                  <Element is={Container} padding={5} background="#fff" canvas>
                     <button>Hello World</button>
                     <button>New World</button>
                   </Element>
