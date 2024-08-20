@@ -138,6 +138,7 @@ import { Heading } from "../UserComponents/Heading";
 import { Text } from "../UserComponents/Text/Text";
 import { Button } from "../UserComponents/Buttons/Button";
 import { Column } from "../UserComponents/Columns/Columns";
+import { TwoColumns } from "../UserComponents/Columns/TwoColumns";
 import { Wrapper } from "../UserComponents/Wrapper/Wrapper";
 import { FaSearch } from "react-icons/fa";
 import { BsQuestion } from "react-icons/bs";
@@ -149,6 +150,7 @@ type ComponentMap = {
   Button: typeof Button;
   Text: typeof Text;
   Column: typeof Column;
+  TwoColumns: typeof TwoColumns;
   Wrapper: typeof Wrapper;
 };
 
@@ -178,6 +180,7 @@ const componentMap: ComponentMap = {
   Button,
   Text,
   Column,
+  TwoColumns,
   Wrapper
 };
 
@@ -207,7 +210,7 @@ const renderComponent = (
       {type === "Button" ? (
         <button
           className={`bg-${
-            props.buttonType === "primary" ? "red" : "gray"
+            props.buttonType === "primary" ? "blue" : "gray"
           }-500 text-white px-4 py-2 rounded`}
         >
           {props.text}

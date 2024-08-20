@@ -67,8 +67,9 @@ const buttonStyles = {
   },
 };
 
-export const Button = ({ text, buttonType }) => {
+export const Button = ( props ) => {
   const { connectors: { connect, drag } } = useNode();
+  const {text, buttonType} = props;
   console.log({text, buttonType})
 
   return (

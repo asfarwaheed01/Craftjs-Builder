@@ -1,9 +1,11 @@
 import { useNode } from "@craftjs/core";
 
-export const Text = ({ text }) => {
+export const Text = (props) => {
   const {
     connectors: { connect, drag },
   } = useNode();
+
+  const {text} = props;
 
   return (
     <div

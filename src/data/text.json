@@ -91,6 +91,10 @@
         {
           "type": "Button",
           "props": { "text": "Button Secondary", "buttonType": "secondary"  }
+        },
+        {
+          "type": "Button",
+          "props": { "text": "Button Simple", "buttonType": "simple"  }
         }
       ]
     }
@@ -98,6 +102,34 @@
   "image":{
     "1": [
       { "label": "Themed Images", "id": "themed-images" },
+      { "label": "Faded Images", "id": "faded-images" }
+    ],
+    "2":{
+      "themed-images": [
+        {
+          "type": "ThemedImages",
+          "props": { "text": "Themed Images 1" }
+        },
+        {
+          "type": "ThemedImages",
+          "props": { "text": "Themed Images 2" }
+        }
+      ],
+      "image-mask": [
+        {
+          "type": "FadedImages",
+          "props": { "text": "Faded Images 1" }
+        },
+        {
+          "type": "Faded Images",
+          "props": { "text": "Faded Images 2" }
+        }
+      ]
+    }
+  },
+  "card":{
+    "1": [
+      { "label": "Single Card", "id": "single-card" },
       { "label": "Faded Images", "id": "faded-images" }
     ],
     "2":{
@@ -135,7 +167,7 @@
           "props": { "text": "3 Columns" }
         },
         {
-          "type": "Column",
+          "type": "TwoColumns",
           "props": { "text": "2 Columns" }
         }
       ]

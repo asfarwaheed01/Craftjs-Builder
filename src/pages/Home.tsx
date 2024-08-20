@@ -11,10 +11,11 @@ import { Button } from "../components/UserComponents/Buttons/Button";
 import { Text } from "../components/UserComponents/Text/Text";
 import { Wrapper } from "../components/UserComponents/Wrapper/Wrapper";
 import { ContainerMini } from "../components/UserComponents/ContainerMini/ContainerMini";
+import { TwoColumns } from "../components/UserComponents/Columns/TwoColumns";
 
 const Home = () => {
   return (
-    <Editor resolver={{ Container, Heading, Column,ColumnLayout, Button, Text, Wrapper, ContainerMini }}>
+    <Editor resolver={{ Container, Heading, Column,ColumnLayout, Button, Text, Wrapper, ContainerMini, TwoColumns }}>
       {/* <DefaultLayout>
                 <Frame>
                 <Element is={Container} padding={5} background="#eee" canvas>
