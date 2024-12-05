@@ -1,217 +1,336 @@
-import React, { useState, useRef } from "react";
+// import React, { useState } from 'react';
+// import { Element, ElementProps } from '@craftjs/core';
+// import { Heading } from '../UserComponents/Heading';
+// import { Button } from '../UserComponents/Buttons/Button';
+
+// type ComponentMap = {
+//   Heading: typeof Heading;
+//   Button: typeof Button;
+// };
+
+// type ComponentProps = {
+//   text?: string;
+//   src?: string;
+//   buttonType?: string;
+//   [key: string]: any;
+// };
+
+// type MenuData = {
+//   [key: string]: { type: keyof ComponentMap; props: ComponentProps }[] | MenuData;
+// };
+
+// type AddElementProps = {
+//   closeMenu: () => void;
+//   menuData: MenuData;
+//   connectors: {
+//     create: (ref: HTMLElement | null, node: React.ReactElement) => void;
+//   };
+// };
+
+// // add componeents here
+// const componentMap: ComponentMap = {
+//   Heading,
+//   Button,
+// };
+
+// const renderComponent = (
+//   type: keyof ComponentMap,
+//   props: ComponentProps,
+//   connectors: AddElementProps['connectors']
+// ) => {
+//   const Component = componentMap[type];
+//   return (
+//     <div
+//       key={props.text || props.src || Math.random().toString(36).substring(2, 15)}
+//       ref={(ref: HTMLDivElement | null) =>
+//         connectors.create(ref, <Element is={Component} {...(props as ElementProps<typeof Component>)} />)
+//       }
+//       className="cursor-move"
+//     >
+//       {type === 'Button' ? (
+//         <button
+//           className={`bg-${props.buttonType === 'primary' ? 'blue' : 'gray'}-500 text-white px-4 py-2 rounded`}
+//         >
+//           {props.text}
+//         </button>
+//       ) : (
+//         props?.text || props.src
+//       )}
+//     </div>
+//   );
+// };
+
+// const renderNestedMenu = (
+//   data: MenuData | { type: keyof ComponentMap; props: ComponentProps }[],
+//   originalData: MenuData | { type: keyof ComponentMap; props: ComponentProps }[],
+//   connectors: AddElementProps['connectors'],
+//   handleItemClick: (level: number, key: string) => void,
+//   level: number,
+//   selectedKeys: string[]
+// ): React.ReactNode => {
+
+//   const levelString = level.toString();
+//   console.log({data, originalData, level, levelString})
+
+//   if (Array.isArray(data) && data.length > 0 && 'type' in data[0]) {
+//     return data.map(({ type, props }) => renderComponent(type, props, connectors));
+//   }
+
+//   return (
+//     <div className='w-[700px]'>
+//       {(originalData?.[levelString] as { label: string; id: string }[])?.map((item) => {
+//         const nextLevelString = (level + 1).toString()
+//         console.log({item, level, originalData, value: originalData?.[nextLevelString]})
+
+//         return (
+//         <div key={item.id} className="mb-2 flex justify-between w-full">
+//           <button
+//             onClick={() => handleItemClick(level, item.id)}
+//             className={`mb-2 ${selectedKeys[level] === item.id ? 'bg-blue-500' : 'bg-gray-500'} text-white px-4 py-2 rounded`}
+//           >
+//             {item.label}
+//           </button>
+//           <div className='flex flex-col w-[30%]'>
+//           {selectedKeys[level] === item.id &&
+//             renderNestedMenu(originalData?.[nextLevelString]?.[item.id], originalData, connectors, handleItemClick, level + 1, selectedKeys)}
+//             </div>
+//         </div>
+//       )})}
+//     </div>
+//   );
+// };
+
+// export const AddElement: React.FC<AddElementProps> = ({ menuData, connectors, closeMenu }) => {
+//   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+
+//   const handleItemClick = (level: number, key: string) => {
+//     setSelectedKeys((prev) => {
+//       const newSelectedKeys = [...prev];
+//       newSelectedKeys[level] = key;
+//       return newSelectedKeys.slice(0, level + 1);
+//     });
+//   };
+
+//   return (
+//     <div>
+//       {
+//         Object.keys(menuData)?.map((key)=> {
+
+//           return(
+//             <div className='flex w-full'>
+//                <div onClick={closeMenu} className=" mb-4 bg-red-500 max-h-[50px] text-black px-4 py-2 rounded">
+//                   {key}
+//                 </div>
+//               <div className=''>{renderNestedMenu(menuData[key], menuData[key], connectors, handleItemClick, 1, selectedKeys)}</div>
+//             </div>
+
+//             )
+//         })
+//       }
+
+//     </div>
+//   );
+// };
+
+import React, { useState, useRef, useEffect } from "react";
+import { Element, ElementProps } from "@craftjs/core";
+import { Heading } from "../UserComponents/Heading";
+import { Text } from "../UserComponents/Text/Text";
+import { Button } from "../UserComponents/Buttons/Button";
+import { Column } from "../UserComponents/Columns/Columns";
+import { TwoColumns } from "../UserComponents/Columns/TwoColumns";
+import { Wrapper } from "../UserComponents/Wrapper/Wrapper";
 import { FaSearch } from "react-icons/fa";
 import { BsQuestion } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
-import { Heading } from "../UserComponents/Heading";
-import { Canvas, Element, useEditor } from "@craftjs/core";
-import { ColumnLayout } from "../UserComponents/Columns/ColumnsLayout";
-import { Column } from "../UserComponents/Columns/Columns";
-import { Button } from "../UserComponents/Buttons/Button";
 
-interface AddElementProps {
+type ComponentMap = {
+  Heading: typeof Heading;
+  Button: typeof Button;
+  Text: typeof Text;
+  Column: typeof Column;
+  TwoColumns: typeof TwoColumns;
+  Wrapper: typeof Wrapper;
+};
+
+type ComponentProps = {
+  text?: string;
+  src?: string;
+  buttonType?: string;
+  [key: string]: any;
+};
+
+type MenuData = {
+  [key: string]:
+    | { type: keyof ComponentMap; props: ComponentProps }[]
+    | MenuData;
+};
+
+type AddElementProps = {
   closeMenu: () => void;
-}
+  menuData: MenuData;
+  connectors: {
+    create: (ref: HTMLElement | null, node: React.ReactElement) => void;
+  };
+};
 
-const AddElement: React.FC<AddElementProps> = ({ closeMenu }) => {
-  const { connectors } = useEditor();
-  const [selectedElement, setSelectedElement] = useState<string>("text");
-  const [selectedSubElement, setSelectedSubElement] = useState<string>("");
+const componentMap: ComponentMap = {
+  Heading,
+  Button,
+  Text,
+  Column,
+  TwoColumns,
+  Wrapper
+};
 
-  const columns = {
-    text: {
-      second: [
-        { label: "Themed Text", id: "themed-text" },
-        { label: "Titles", id: "titles" },
-        { label: "Paragraphs", id: "paragraphs" },
-        { label: "Collapsable Text", id: "collapsable-text" },
-        { label: "Text Mask", id: "text-mask" },
-      ],
-      third: {
-        "themed-text": [
-          <h2 className="font-bold text-lg">Themed Text</h2>,
-          <div
-            ref={(ref) =>
-              connectors.create(
-                ref,
-                <Element is={Heading} text="Heading h1" level={1} />
-              )
-            }
-            className="cursor-move"
-          >
-            Heading h1
-          </div>,
-          <div
-            ref={(ref) =>
-              connectors.create(
-                ref,
-                <Element is={Heading} text="Heading h2" level={2} />
-              )
-            }
-            className="cursor-move"
-          >
-            Heading h2
-          </div>,
-          <div
-          ref={(ref) =>
-            connectors.create(
-              ref,
-              <Element is={Heading} text="Heading h3" level={3} />
-            )
-          }
-          className="cursor-move"
-        >
-          Heading h3
-        </div>,
-          <div
-          ref={(ref) =>
-            connectors.create(
-              ref,
-              <Element is={Heading} text="Heading h4" level={4} />
-            )
-          }
-          className="cursor-move"
-        >
-          Heading h4
-        </div>,
-          <div
-          ref={(ref) =>
-            connectors.create(
-              ref,
-              <Element is={Heading} text="Heading h5" level={5} />
-            )
-          }
-          className="cursor-move"
-        >
-          Heading h5
-        </div>,
-          <div
-          ref={(ref) =>
-            connectors.create(
-              ref,
-              <Element is={Heading} text="Heading h6" level={6} />
-            )
-          }
-          className="cursor-move"
-        >
-          Heading h6
-        </div>,
-        ],
-        titles: [
-          <h2 className="font-bold text-lg">Titles</h2>,
-          <div key="1">Title 1</div>,
-          <div key="2">Title 2</div>,
-        ],
-        paragraphs: [
-          <h2 className="font-bold text-lg">Paragraphs</h2>,
-          <div key="1">Paragraph 1</div>,
-          <div key="2">Paragraph 2</div>,
-        ],
-        "collapsable-text": [
-          <h2 className="font-bold text-lg">Collapsable Text</h2>,
-          <div key="1">Collapsable Text 1</div>,
-          <div key="2">Collapsable Text 2</div>,
-        ],
-        "text-mask": [
-          <h2 className="font-bold text-lg">Text Mask</h2>,
-          <div key="1">Text Mask 1</div>,
-          <div key="2">Text Mask 2</div>,
-        ],
-      },
-    },
-    Buttons: {
-        second: [
-          { label: "Buttons", id: "buttons" },
-        ],
-        third: {
-          buttons: [
-            <h2 key="heading" className="font-bold text-lg">Buttons</h2>,
-            <div
-              key="primary"
-              ref={(ref) => connectors.create(ref, <Button text="Primary" buttonType="primary" />)}
-              className="cursor-move mb-2"
-            >
-              <button className="bg-blue-500 text-white px-4 py-2 rounded">Primary</button>
-            </div>,
-            <div
-              key="secondary"
-              ref={(ref) => connectors.create(ref, <Button text="Secondary" buttonType="secondary" />)}
-              className="cursor-move mb-2"
-            >
-              <button className="bg-gray-500 text-white px-4 py-2 rounded">Secondary</button>
-            </div>,
-            <div
-              key="simple"
-              ref={(ref) => connectors.create(ref, <Button text="Simple" buttonType="simple" />)}
-              className="cursor-move mb-2"
-            >
-              <button className="bg-white text-black border border-gray-300 px-4 py-2 rounded">Simple</button>
-            </div>
-          ]
-        }
-      },
-    image: {
-      second: [
-        { label: "Type 1", id: "type-1" },
-        { label: "Type 2", id: "type-2" },
-      ],
-      third: {
-        "type-1": [
-          <div key="1">Image Type 1A</div>,
-          <div key="2">Image Type 1B</div>,
-        ],
-        "type-2": [
-          <div key="1">Image Type 2A</div>,
-          <div key="2">Image Type 2B</div>,
-        ],
-      },
-    },
-    Columns:{
-        second:[
-            {label:"3 Columns", id:"3 columns"}
-        ],
-        third:{
-            "Three Columns":[
-                <button
-      ref={ref => {
+const renderComponent = (
+  type: keyof ComponentMap,
+  props: ComponentProps,
+  connectors: AddElementProps["connectors"]
+) => {
+  const Component = componentMap[type];
+  return (
+    <div
+      key={
+        props.text || props.src || Math.random().toString(36).substring(2, 15)
+      }
+      ref={(ref: HTMLDivElement | null) =>
         connectors.create(
           ref,
-          <Canvas is={ColumnLayout}>
-            <Canvas is={Column}>1</Canvas>
-            <Canvas is={Column}>2</Canvas>
-            <Canvas is={Column}>3</Canvas>
-          </Canvas>
-        );
-      }}
+          <Element
+            is={Component}
+            {...(props as ElementProps<typeof Component>)}
+          />
+        )
+      }
+      className="cursor-move"
+      data-id={props.text || props.src}
     >
-      ColumnLayout
-    </button>
-            ]
-        }
-    }
-  };
+      {type === "Button" ? (
+        <button
+          className={`bg-${
+            props.buttonType === "primary" ? "blue" : "gray"
+          }-500 text-white px-4 py-2 rounded`}
+        >
+          {props.text}
+        </button>
+      ) : (
+        props?.text || props.src
+      )}
+    </div>
+  );
+};
 
-  const handleClick = (element: string) => {
-    setSelectedElement(element);
-    setSelectedSubElement("");
-  };
+export const AddElement: React.FC<AddElementProps> = ({
+  menuData,
+  connectors,
+  closeMenu,
+}) => {
+  const firstKey = Object.keys(menuData)[0];
+  const [selectedCategory, setSelectedCategory] = useState<string>(firstKey);
+  const firstSubCategory =
+    selectedCategory && "1" in menuData[selectedCategory]
+      ? (menuData[selectedCategory]["1"] as { label: string; id: string }[])[0]
+          .id
+      : null;
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
+    firstSubCategory
+  );
+  const thirdColumnRef = useRef<HTMLDivElement | null>(null);
+  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-  const handleSubElementClick = (id: string) => {
-    setSelectedSubElement(id);
-    scrollToElement(id);
-  };
-
-  const scrollToElement = (id: string) => {
-    const element = document.getElementById(id);
-    if (element && thirdColumnRef.current) {
-      thirdColumnRef.current.scrollTo({
-        top: element.offsetTop,
+  useEffect(() => {
+    if (selectedSubCategory && sectionRefs.current[selectedSubCategory]) {
+      sectionRefs.current[selectedSubCategory]?.scrollIntoView({
         behavior: "smooth",
+        block: "start",
       });
     }
+  }, [selectedSubCategory]);
+
+  const renderFirstColumn = () => {
+    return (
+      <div className="w-[25%]">
+        {Object.keys(menuData).map((key) => (
+          <button
+            key={key}
+            onClick={() => {
+              setSelectedCategory(key);
+              const firstSub =
+                "1" in menuData[key]
+                  ? (menuData[key]["1"] as { label: string; id: string }[])[0]
+                      .id
+                  : null;
+              setSelectedSubCategory(firstSub);
+            }}
+            className={`mb-2 ${
+              selectedCategory === key ? "bg-blue-200 text-blue-500" : "bg-none"
+            } text-black px-3 py-1 ml-4 justify-center rounded-full text-[14px] flex flex-col`}
+          >
+            <div className="">{key}</div>
+          </button>
+        ))}
+      </div>
+    );
   };
 
-  const thirdColumnRef = useRef<HTMLDivElement>(null);
+  const renderSecondColumn = () => {
+    if (!selectedCategory) return null;
+
+    const subCategories = menuData[selectedCategory]["1"] as {
+      label: string;
+      id: string;
+    }[];
+    return (
+      <div className="w-[25%] pl-5 border-l-[1px] border-gray-300">
+        {subCategories.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setSelectedSubCategory(item.id)}
+            className={`mb-2 ${
+              selectedSubCategory === item.id
+                ? "bg-blue-200 text-blue-500"
+                : "bg-[#FFFFFF]"
+            } text-black px-3 py-1 rounded-full flex flex-col text-[14px]`}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+    );
+  };
+
+  const renderThirdColumn = () => {
+    if (!selectedCategory || !selectedSubCategory) return null;
+
+    const detailedItems = menuData[selectedCategory]["2"] as {
+      [key: string]: { type: keyof ComponentMap; props: ComponentProps }[];
+    };
+    return (
+      <div
+        ref={thirdColumnRef}
+        className="w-[50%] max-h-[350px] overflow-y-auto border-l-[1px] border-gray-300 pl-5"
+      >
+        {Object.keys(detailedItems).map((subCategory) => (
+          <div
+            key={subCategory}
+            ref={(el) => (sectionRefs.current[subCategory] = el)}
+            className="mb-4"
+          >
+            <h3 className="text-lg font-bold mb-2 capitalize">
+              {subCategory.replace("-", " ")}
+            </h3>
+            <p className="flex flex-col gap-2">
+              {detailedItems[subCategory].map(({ type, props }) =>
+                renderComponent(type, props, connectors)
+              )}
+            </p>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <motion.div
@@ -244,70 +363,12 @@ const AddElement: React.FC<AddElementProps> = ({ closeMenu }) => {
           </div>
         </div>
       </div>
-      <div className="flex pt-5">
-        <div className="w-[25%] p-2 border-r border-gray-200">
-          <ul>
-            {Object.keys(columns).map((key) => (
-              <li
-                key={key}
-                onClick={() => handleClick(key)}
-                className="cursor pointer mb-1"
-              >
-                <span
-                  className={`px-3 py-1 cursor-pointer text-[14px] rounded-full ${
-                    selectedElement === key
-                      ? "bg-blue-100 text-blue-600"
-                      : "hover:bg-gray-100"
-                  }`}
-                >
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="w-[25%] p-2 border-r border-gray-200">
-          <ul>
-            {columns[selectedElement].second.map(({ label, id }) => (
-              <li
-                key={id}
-                onClick={() => handleSubElementClick(id)}
-                className={`p-2 cursor-pointer ${
-                  selectedSubElement === id
-                    ? "bg-blue-100 text-blue-600"
-                    : "hover:bg-gray-100"
-                }`}
-              >
-                {label}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div
-          className="w-[50%] p-2 overflow-y-auto h-[65vh]"
-          ref={thirdColumnRef}
-        >
-          <ul>
-            {Object.entries(columns[selectedElement].third).map(
-              ([id, items]) => (
-                <React.Fragment key={id}>
-                  {items.map((item, index) => (
-                    <li
-                      key={index}
-                      id={id}
-                      className="p-2 cursor-pointer hover:bg-gray-100"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </React.Fragment>
-              )
-            )}
-          </ul>
-        </div>
+      <div className="flex w-[700px] pt-5 relative">
+        {renderFirstColumn()}
+        {renderSecondColumn()}
+        {renderThirdColumn()}
       </div>
     </motion.div>
   );
 };
 
-export default AddElement;

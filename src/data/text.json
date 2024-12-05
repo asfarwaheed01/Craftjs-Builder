@@ -1,0 +1,190 @@
+{
+  "text": {
+    "1": [
+      { "label": "Themed Text", "id": "themed-text" },
+      { "label": "Titles", "id": "titles" },
+      { "label": "Paragraphs", "id": "paragraphs" },
+      { "label": "Collapsable Text", "id": "collapsable-text" },
+      { "label": "Text Mask", "id": "text-mask" }
+    ],
+
+    "2":{
+      "themed-text": [
+        {
+          "type": "Heading",
+          "props": { "text": "Heading h1", "level": 1 }
+        },
+        {
+          "type": "Heading",
+          "props": { "text": "Heading h2", "level": 2 }
+        },
+        {
+          "type": "Heading",
+          "props": { "text": "Heading h3", "level": 3 }
+        },
+        {
+          "type": "Heading",
+          "props": { "text": "Heading h4", "level": 4 }
+        },
+        {
+          "type": "Heading",
+          "props": { "text": "Heading h5", "level": 5 }
+        },
+        {
+          "type": "Heading",
+          "props": { "text": "Heading h6", "level": 6 }
+        }
+      ],
+      "titles": [
+        {
+          "type": "Title",
+          "props": { "text": "Title 1" }
+        },
+        {
+          "type": "Title",
+          "props": { "text": "Title 2" }
+        }
+      ],
+      "paragraphs": [
+        {
+          "type": "Paragraph",
+          "props": { "text": "Paragraph 1" }
+        },
+        {
+          "type": "Paragraph",
+          "props": { "text": "Paragraph 2" }
+        }
+      ],
+      "collapsable-text": [
+        {
+          "type": "CollapsableText",
+          "props": { "text": "Collapsable Text 1" }
+        },
+        {
+          "type": "CollapsableText",
+          "props": { "text": "Collapsable Text 2" }
+        }
+      ],
+      "text-mask": [
+        {
+          "type": "Text",
+          "props": { "text": "Text Mask 1" }
+        },
+        {
+          "type": "Text",
+          "props": { "text": "Text Mask 2" }
+        }
+      ]
+    }
+    
+  },
+  "button":{
+    "1": [
+      { "label": "Themed Images", "id": "button" }
+    ],
+    "2":{
+      "button": [
+        {
+          "type": "Button",
+          "props": { "text": "Button Primary", "buttonType": "primary" }
+        },
+        {
+          "type": "Button",
+          "props": { "text": "Button Secondary", "buttonType": "secondary"  }
+        },
+        {
+          "type": "Button",
+          "props": { "text": "Button Simple", "buttonType": "simple"  }
+        }
+      ]
+    }
+  },
+  "image":{
+    "1": [
+      { "label": "Themed Images", "id": "themed-images" },
+      { "label": "Faded Images", "id": "faded-images" }
+    ],
+    "2":{
+      "themed-images": [
+        {
+          "type": "ThemedImages",
+          "props": { "text": "Themed Images 1" }
+        },
+        {
+          "type": "ThemedImages",
+          "props": { "text": "Themed Images 2" }
+        }
+      ],
+      "image-mask": [
+        {
+          "type": "FadedImages",
+          "props": { "text": "Faded Images 1" }
+        },
+        {
+          "type": "Faded Images",
+          "props": { "text": "Faded Images 2" }
+        }
+      ]
+    }
+  },
+  "card":{
+    "1": [
+      { "label": "Single Card", "id": "single-card" },
+      { "label": "Faded Images", "id": "faded-images" }
+    ],
+    "2":{
+      "themed-images": [
+        {
+          "type": "ThemedImages",
+          "props": { "text": "Themed Images 1" }
+        },
+        {
+          "type": "ThemedImages",
+          "props": { "text": "Themed Images 2" }
+        }
+      ],
+      "image-mask": [
+        {
+          "type": "FadedImages",
+          "props": { "text": "Faded Images 1" }
+        },
+        {
+          "type": "Faded Images",
+          "props": { "text": "Faded Images 2" }
+        }
+      ]
+    }
+  },
+  "columns":{
+    "1": [
+      { "label": "3 columns", "id": "three-columns" },
+      { "label": "2 columns", "id": "two-columns" }
+    ],
+    "2":{
+      "themed-images": [
+        {
+          "type": "Column",
+          "props": { "text": "3 Columns" }
+        },
+        {
+          "type": "TwoColumns",
+          "props": { "text": "2 Columns" }
+        }
+      ]
+    }
+  },
+  "layout":{
+    "1": [
+      { "label": "Wrapper", "id": "wrapper" }
+    ],
+    "2":{
+      "themed-images": [
+        {
+          "type": "Wrapper",
+          "props": { "text": "Wrapper" }
+        }
+      ]
+    }
+  }
+}
+
